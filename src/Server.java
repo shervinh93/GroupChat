@@ -11,6 +11,8 @@ public class Server {
 
 	public void init(int port){
 		log("trying to initialize the server");
+		
+		ObserverHandler obh = new ObserverHandler();
 		observerList = new ArrayList<Observer>();
 		try {
 			serverSocket = new ServerSocket(port);
@@ -30,8 +32,8 @@ public class Server {
 			}
 			ServerConnection connection = new ServerConnection(connectionToClient);
 			Thread newThread = new Thread(connection);
-			Observer observer = (Observer) newThread;
-			registerObserver(observer);
+			Observer observer = (Observer) connection;
+
 			newThread.start();
 		}
 	}
@@ -41,20 +43,6 @@ public class Server {
 			serverSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void registerObserver(Observer ob){
-		observerList.add(ob);
-	}
-
-	public void unRegisterObserver(Observer ob){
-		observerList.remove(ob);
-	}
-
-	public void notifyObservers(String message){
-		for(Observer o : observerList){
-			o.update(message);
 		}
 	}
 	

@@ -3,43 +3,57 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 
 public class ServerConnection implements Runnable, Observer{
+
 	private Socket socket;
-	BufferedReader input;
-	PrintWriter output;
+	private BufferedReader input;
+	private PrintWriter output;
 
 	public ServerConnection(Socket connectionToClient) {
+		socket = connectionToClient;
 		try {
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new PrintWriter(socket.getOutputStream(), true);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		socket = connectionToClient;
 	}
 
-	@Override
+	//updates observers
 	public void update(String message) {
 		send(message);
-		
+	}
+	
+	public Socket getSocket(){
+		return socket;
 	}
 
+	//sends message o clients
 	public void send(String message){
 		output.write(message);
 		output.flush();
 	}
 	
-	public void receive(String message){
+	//receives a string from a client
+	public String receive(){
+		String message = "";
+		try {
+			message = input.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		return message;
 	}
 	
-	@Override
+	//the run method for each thread
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		while(true){
+			server.notifyObservers(receive());
+		}
 	}
 
 }
