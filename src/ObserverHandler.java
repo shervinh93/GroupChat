@@ -2,23 +2,23 @@ import java.util.ArrayList;
 
 
 public class ObserverHandler {
-	private ArrayList<Observer> observerList;
+	private ArrayList<ServerConnection> observerList;
 	
 	public ObserverHandler(){
-		observerList = new ArrayList<Observer>();
+		observerList = new ArrayList<ServerConnection>();
 	}
 	
-	public void registerObserver(Observer ob){
-		observerList.add(ob);
+	public void registerObserver(ServerConnection connection){
+		observerList.add(connection);
 	}
 
-	public void unRegisterObserver(Observer ob){
-		observerList.remove(ob);
+	public void unRegisterObserver(ServerConnection connection){
+		observerList.remove(connection);
 	}
 
 	public void notifyObservers(String message){
-		for(Observer o : observerList){
-			o.update(message);
+		for(ServerConnection con : observerList){
+			con.update(message);
 		}
 	}
 }

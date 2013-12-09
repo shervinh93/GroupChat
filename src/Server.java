@@ -1,19 +1,18 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 
 public class Server {
 	private ServerSocket serverSocket = null;
 	private Socket connectionToClient = null;
-	private ArrayList<Observer> observerList;
+	private ObserverHandler obh;
+	
 
 	public void init(int port){
 		log("trying to initialize the server");
 		
-		ObserverHandler obh = new ObserverHandler();
-		observerList = new ArrayList<Observer>();
+		obh = new ObserverHandler();
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
@@ -30,10 +29,7 @@ public class Server {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			ServerConnection connection = new ServerConnection(connectionToClient);
-			Thread newThread = new Thread(connection);
-			Observer observer = (Observer) connection;
-
+			Thread newThread = new Thread(new ServerConnection(connectionToClient, obh));
 			newThread.start();
 		}
 	}

@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 
 public class ServerConnection implements Runnable, Observer{
@@ -11,15 +10,19 @@ public class ServerConnection implements Runnable, Observer{
 	private Socket socket;
 	private BufferedReader input;
 	private PrintWriter output;
+	private ObserverHandler obsHandler;
 
-	public ServerConnection(Socket connectionToClient) {
+	public ServerConnection(Socket connectionToClient, ObserverHandler obh) {
 		socket = connectionToClient;
+		obsHandler = obh;
+		
 		try {
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new PrintWriter(socket.getOutputStream(), true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		obsHandler.registerObserver(this);
 	}
 
 	//updates observers
@@ -52,7 +55,7 @@ public class ServerConnection implements Runnable, Observer{
 	//the run method for each thread
 	public void run() {
 		while(true){
-			server.notifyObservers(receive());
+			obsHandler.notifyObservers(receive());
 		}
 	}
 
