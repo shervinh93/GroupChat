@@ -10,7 +10,6 @@ public class ClientConnection {
 	public ClientConnection(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
 
-		//The getOutputStream and getInputStream methods return byte streams
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
 	}
