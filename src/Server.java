@@ -10,22 +10,26 @@ public class Server {
 	private ArrayList<Observer> observerList;
 
 	public void init(int port){
+		log("trying to initialize the server");
 		observerList = new ArrayList<Observer>();
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		log("Succeded");
 	}
 
-	public void waitForConnection(){
+	public void waitForConnections(){
+		log("waiting for connections");
 		while(true){
 			try {
 				connectionToClient = serverSocket.accept();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Thread newThread = new Thread(new ServerHandler(connectionToClient));
+			ServerConnection connection = new ServerConnection(connectionToClient);
+			Thread newThread = new Thread(connection);
 			Observer observer = (Observer) newThread;
 			registerObserver(observer);
 			newThread.start();
@@ -33,7 +37,11 @@ public class Server {
 	}
 
 	public void close(){
-
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void registerObserver(Observer ob){
@@ -44,9 +52,19 @@ public class Server {
 		observerList.remove(ob);
 	}
 
-	public void notifyObservers(){
+	public void notifyObservers(String message){
 		for(Observer o : observerList){
-			o.update();
+			o.update(message);
 		}
+	}
+	
+	public void log(String log_message){
+		System.out.println(log_message);
+	}
+	
+	public static void main(String[] args){
+		Server server = new Server();
+		server.init(52000);
+		server.waitForConnections();
 	}
 }
