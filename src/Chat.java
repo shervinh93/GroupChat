@@ -6,11 +6,14 @@ public class Chat {
 
 	private Properties properties;
 	private ClientConnection clientConnection;
+	private ChatGUI gui;
+	private String username;
 
 	public Chat() {
 		properties = new Properties();
 		loadProperties();
 		connectToServer(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
+		gui = new ChatGUI(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
 	}
 
 	public void connectToServer(String serverAddress, int port) {

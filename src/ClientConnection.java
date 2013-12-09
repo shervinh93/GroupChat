@@ -7,8 +7,11 @@ public class ClientConnection {
 	private PrintWriter outStream = null;
 	private BufferedReader inStream = null;
 
+	private String username;
+
 	public ClientConnection(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
+		this.username = username;
 
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
