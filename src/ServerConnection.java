@@ -11,9 +11,12 @@ public class ServerConnection implements Runnable, Observer{
 	private BufferedReader input;
 	private PrintWriter output;
 	private ObserverHandler obsHandler;
+	private String username;
 
+	/*Constructor for ServerConnection*/
 	public ServerConnection(Socket connectionToClient, ObserverHandler obh) {
 		socket = connectionToClient;
+		
 		obsHandler = obh;
 		
 		try {
@@ -22,12 +25,13 @@ public class ServerConnection implements Runnable, Observer{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.username = receive();
 		obsHandler.registerObserver(this);
 	}
 
 	//updates observers
 	public void update(String message) {
-		send(message);
+		send(username + ": " + message);
 	}
 	
 	public Socket getSocket(){
