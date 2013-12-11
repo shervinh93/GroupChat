@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 public class Server {
 	private ServerSocket serverSocket = null;
 	private Socket connectionToClient = null;
