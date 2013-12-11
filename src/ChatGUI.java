@@ -3,14 +3,10 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.swing.*;
 
 public class ChatGUI extends JFrame implements ActionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JButton button1 = new JButton("Send");
 	private JTextArea textArea = new JTextArea(30 ,28);
@@ -24,7 +20,12 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private JMenu helpMenu = new JMenu("Help");
 	private JMenuItem about = new JMenuItem("About");
 	
-	Properties prop = new Properties();	
+	private Properties prop = new Properties();	
+	private Chat clientChat;
+	
+	public ChatGUI(Chat clientChat){
+		this.clientChat = clientChat;		
+	}
 	
 	public void createWindow(){
 //		 fönster
@@ -85,7 +86,6 @@ public class ChatGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		if ("Send".equals(arg0.getActionCommand())){
 			textArea.append(textField.getText()+"\n");
-			System.out.println("test");
        	}	       
     	else if ("connect".equals(arg0.getActionCommand())) {
          	String name = JOptionPane.showInputDialog("Name");

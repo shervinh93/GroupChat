@@ -45,9 +45,9 @@ public class Server {
 		System.out.println(log_message);
 	}
 	
-	public static void main(String[] args){
-		Server server = new Server();
-		server.init(52000);
-		server.waitForConnections();
-	}
+//	public static void main(String[] args){
+//		Server server = new Server();
+//		server.init(52000);
+//		server.waitForConnections();
+//	}
 }
