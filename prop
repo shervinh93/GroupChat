@@ -1,4 +1,4 @@
-#Wed Dec 11 13:39:42 CET 2013
+#Wed Dec 11 14:28:48 CET 2013
 address=localhost
-port=12345
-name=erikovitch
+port=52000
+name=j\u00F6rgen
