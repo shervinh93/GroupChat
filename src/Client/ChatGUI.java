@@ -102,6 +102,10 @@ public class ChatGUI extends JFrame implements ActionListener{
 				e.printStackTrace();
 			}
         }
+    	else if ("Exit".equals(arg0.getActionCommand())) {
+    	client.close();
+			
+        }
 	}
 
 }
