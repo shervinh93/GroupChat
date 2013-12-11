@@ -46,10 +46,4 @@ public class Server {
 	public void log(String log_message){
 		System.out.println(log_message);
 	}
-	
-//	public static void main(String[] args){
-//		Server server = new Server();
-//		server.init(52000);
-//		server.waitForConnections();
-//	}
 }

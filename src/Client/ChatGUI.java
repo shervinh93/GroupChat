@@ -87,7 +87,9 @@ public class ChatGUI extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if ("Send".equals(arg0.getActionCommand())){
-			textArea.append(textField.getText()+"\n");
+			String message = textField.getText();
+			client.send(message);
+//			textArea.append(textField.getText()+"\n");
        	}	       
     	else if ("connect".equals(arg0.getActionCommand())) {
     		String name = JOptionPane.showInputDialog("Nickname:");
