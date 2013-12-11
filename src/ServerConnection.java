@@ -29,7 +29,7 @@ public class ServerConnection implements Runnable, Observer{
 		obsHandler.registerObserver(this);
 	}
 
-	//updates observers
+	/*updates observers*/
 	public void update(String message) {
 		send(username + ": " + message);
 	}
@@ -38,13 +38,13 @@ public class ServerConnection implements Runnable, Observer{
 		return socket;
 	}
 
-	//sends message o clients
+	/*sends message o clients*/
 	public void send(String message){
 		output.write(message);
 		output.flush();
 	}
 	
-	//receives a string from a client
+	/*receives a string from a client*/
 	public String receive(){
 		String message = "";
 		try {
@@ -56,6 +56,8 @@ public class ServerConnection implements Runnable, Observer{
 		return message;
 	}
 	
+	/*unregisters the client from the handler and 
+	 * closes the socket */
 	public void close(){
 		try {
 			obsHandler.unRegisterObserver(this);
