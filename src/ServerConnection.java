@@ -15,6 +15,7 @@ public class ServerConnection implements Runnable, Observer{
 
 	/*Constructor for ServerConnection*/
 	public ServerConnection(Socket connectionToClient, ObserverHandler obh) {
+	
 		socket = connectionToClient;
 		
 		obsHandler = obh;
@@ -73,6 +74,7 @@ public class ServerConnection implements Runnable, Observer{
 	
 	//the run method for each thread
 	public void run() {
+		System.out.println("new thread started");
 		while(true){
 			obsHandler.notifyObservers(receive());
 		}
