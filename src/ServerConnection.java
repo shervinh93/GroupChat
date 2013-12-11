@@ -56,10 +56,13 @@ public class ServerConnection implements Runnable, Observer{
 		return message;
 	}
 	
-	/*unregisters the client from the handler and 
+	/* unregisters the client from the handler,
+	 * closes the streams and 
 	 * closes the socket */
 	public void close(){
 		try {
+			input.close();
+			output.close();
 			obsHandler.unRegisterObserver(this);
 			socket.close();
 		} catch (IOException e) {
