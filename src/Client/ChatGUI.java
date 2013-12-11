@@ -77,8 +77,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 		}
 	}
 	
-	public void appendRecievedText(){
-		textArea.append(textField.getText()+"\n");
+	public void appendRecievedText(String message){
+		textArea.append(message);
 	}
 	
 	public void sendInputText(){
