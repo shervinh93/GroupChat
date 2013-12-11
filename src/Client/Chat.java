@@ -9,8 +9,12 @@ public class Chat{
 	private Client client;
 
 	/*Constructor for chat*/
+<<<<<<< HEAD
 	public Chat(Client client, Properties prop){
 		System.out.println("konstruktor!?! Chat");
+=======
+	public Chat(ClientConnection client, Properties prop){
+>>>>>>> LOL
 		this.client = client;
 		this.properties = prop;
 		
