@@ -9,7 +9,7 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 		String option;
 		
-		while (run){
+//		while (run){
 			
 			System.out.println("1: Server");
 			System.out.println("2: Client");
@@ -28,6 +28,7 @@ public class Main {
 			break;
 			
 			case "2":
+				ChatGUI clientGUI = new ChatGUI();
 				
 			break;
 			case "3":	System.exit(0);
@@ -35,7 +36,7 @@ public class Main {
 			break;
 			default: System.out.println("ERROR");
 			break;}
-		}
+//		}
 			
 			
 		}

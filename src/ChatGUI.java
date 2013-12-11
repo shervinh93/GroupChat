@@ -21,10 +21,11 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private JMenuItem about = new JMenuItem("About");
 	
 	private Properties prop = new Properties();	
+	private ClientConnection clientConnection;
 	private Chat clientChat;
 	
-	public ChatGUI(Chat clientChat){
-		this.clientChat = clientChat;		
+	public ChatGUI(){
+		createWindow();
 	}
 	
 	public void createWindow(){
@@ -33,7 +34,6 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 setSize(500, 500);
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 setTitle("GroupChat");
-		 setVisible(true);
 		 
 //		 arkivmeny
 		 setJMenuBar(menuBar);
@@ -50,7 +50,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 panel.add(textArea);
 		 panel.add(textField);
 		 panel.add(button1);
-	
+		 setVisible(true);
+		 
 //		 actioncommand & actionlistener
 		 button1.setActionCommand("Send");
 		 button1.addActionListener(this); 
@@ -74,12 +75,11 @@ public class ChatGUI extends JFrame implements ActionListener{
 		}
 	}
 	
-	public void appendText(){
-//		textArea.append("\n"+inText);
+	public void appendRecievedText(){
 		textArea.append(textField.getText()+"\n");
 	}
 	
-	public void sendText(){
+	public void sendInputText(){
 		//textField.getText();
 	}
 	
@@ -88,10 +88,11 @@ public class ChatGUI extends JFrame implements ActionListener{
 			textArea.append(textField.getText()+"\n");
        	}	       
     	else if ("connect".equals(arg0.getActionCommand())) {
-         	String name = JOptionPane.showInputDialog("Name");
-    		String port = JOptionPane.showInputDialog("Port");
+    		String name = JOptionPane.showInputDialog("Nickname:");
+    		String port = JOptionPane.showInputDialog("Port:");
     		writeProperties(name, port);
-    		System.out.println("connect??");
+    		clientConnection = new ClientConnection();
+    		clientChat = new Chat(clientConnection, prop);
         }
 	}
 //	String username, serverAddress, port;
