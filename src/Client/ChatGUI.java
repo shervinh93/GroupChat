@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 import javax.swing.*;
 
 public class ChatGUI extends JFrame implements ActionListener{
@@ -93,6 +94,12 @@ public class ChatGUI extends JFrame implements ActionListener{
     		String name = JOptionPane.showInputDialog("Nickname:");
     		String port = JOptionPane.showInputDialog("Port:");
     		writeProperties(name, port);
+    		try {
+				client.connect(address, Integer.parseInt(port));
+			} catch (NumberFormatException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 	}
 //	String username, serverAddress, port;
