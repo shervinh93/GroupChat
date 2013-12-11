@@ -12,7 +12,6 @@ public class Client {
 
 	public void connect(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
-		Thread t = new Thread(new ListenForServer(this));
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
 		System.out.println("Connected");
@@ -24,15 +23,16 @@ public class Client {
 	}
 
 	public String receive() {
-		String rMsg = null;
+		String message = null;
 
 		try {
-			rMsg = inStream.readLine();
+			message = inStream.readLine();
+			System.out.println("Client received message");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return rMsg;
+		return message;
 	}
 
 	public void close(){

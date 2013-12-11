@@ -40,7 +40,7 @@ public class ServerConnection implements Runnable, Observer{
 
 	/*sends message o clients*/
 	public void send(String message){
-		output.write(message);
+		output.println(message);
 		output.flush();
 		System.out.println("message sent:" + message);
 	}
@@ -66,6 +66,7 @@ public class ServerConnection implements Runnable, Observer{
 			output.close();
 			obsHandler.unRegisterObserver(this);
 			socket.close();
+			this.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

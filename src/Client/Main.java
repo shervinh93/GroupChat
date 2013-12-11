@@ -7,8 +7,7 @@ public class Main {
 
 			public void run() {
 				ChatGUI g = new ChatGUI(new Client());
-			}
-			
+			}	
 		});
 		
 	}

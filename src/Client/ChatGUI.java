@@ -78,11 +78,12 @@ public class ChatGUI extends JFrame implements ActionListener{
 	}
 	
 	public void appendRecievedText(String message){
+		System.out.println("append text");
 		textArea.append(message);
 	}
 	
 	public void sendInputText(){
-		//textField.getText();
+		client.send(textField.getText());
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
@@ -97,6 +98,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 //    		writeProperties(name, port);
     		try {
 				client.connect("localhost", 52000);
+				Thread t = new Thread(new ListenForServer(client, this));
+				t.start();
 			} catch (NumberFormatException | IOException e) {
 				JOptionPane.showMessageDialog(panel, "No server found");
 				e.printStackTrace();

@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-#Wed Dec 11 14:31:51 CET 2013
-=======
-#Wed Dec 11 14:40:01 CET 2013
->>>>>>> minichange i chatgui
-address=localhost
-port=23524
-name=gofdgg
-=======
-#Wed Dec 11 14:58:26 CET 2013
 address=localhost
 port=52000
 name=pp
->>>>>>> serverConnection
