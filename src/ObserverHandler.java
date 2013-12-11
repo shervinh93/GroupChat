@@ -8,15 +8,15 @@ public class ObserverHandler {
 		observerList = new ArrayList<ServerConnection>();
 	}
 	
-	public void registerObserver(ServerConnection connection){
+	public synchronized void registerObserver(ServerConnection connection){
 		observerList.add(connection);
 	}
 
-	public void unRegisterObserver(ServerConnection connection){
+	public synchronized void unRegisterObserver(ServerConnection connection){
 		observerList.remove(connection);
 	}
 
-	public void notifyObservers(String message){
+	public synchronized void notifyObservers(String message){
 		for(ServerConnection con : observerList){
 			con.update(message);
 		}

@@ -56,6 +56,16 @@ public class ServerConnection implements Runnable, Observer{
 		return message;
 	}
 	
+	public void close(){
+		try {
+			obsHandler.unRegisterObserver(this);
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	//the run method for each thread
 	public void run() {
 		while(true){
