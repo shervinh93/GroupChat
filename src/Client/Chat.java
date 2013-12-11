@@ -6,15 +6,10 @@ import java.util.Properties;
 public class Chat{
 
 	private Properties properties;
-	private Client client;
+	private ClientConnection client;
 
 	/*Constructor for chat*/
-<<<<<<< HEAD
-	public Chat(Client client, Properties prop){
-		System.out.println("konstruktor!?! Chat");
-=======
 	public Chat(ClientConnection client, Properties prop){
->>>>>>> LOL
 		this.client = client;
 		this.properties = prop;
 		
@@ -32,7 +27,7 @@ public class Chat{
 	}
 	
 	/*returns the clientConnection*/
-	public Client getClient(){
+	public ClientConnection getClient(){
 		return client;
 	}
 
