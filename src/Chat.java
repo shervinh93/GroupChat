@@ -4,39 +4,37 @@ import java.util.Properties;
 
 public class Chat{
 
-	private static Properties properties;
+	private Properties properties;
+	private ClientConnection client;
 
-	public static void loadProperties() {
+	/*Constructor for chat*/
+	public Chat(ClientConnection client){
+		properties = new Properties();
+		loadProperties();
+
+		this.client = client;
+		try {
+			client.connect(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*returns the clientConnection*/
+	public ClientConnection getClient(){
+		return client;
+	}
+
+	/*Loads properties file*/
+	public void loadProperties() {
 		try {
 			properties.load(new FileReader("prop"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args){
-		properties = new Properties();
-		loadProperties();
-		ClientConnection client = new ClientConnection();
-			try {
-				client.connect(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
-			} catch (IOException e) {
-				System.err.println("Failed to connect to the server. " + e.getMessage());
-				System.exit(1);
-			}
-			/*
-			String receivedMessage = client.receive();
-			System.out.println(receivedMessage);
-			*/
-			client.send("********** Hello there! **********");
-			String receivedMessage = client.receive();
-			System.out.println(receivedMessage);
-			client.send("********** Hello again! **********");
-			receivedMessage = client.receive();
-			System.out.println(receivedMessage);
-			client.send("bye");
-			receivedMessage = client.receive();
-			System.out.println(receivedMessage);
-			client.close();
-		}
+
+
 }
