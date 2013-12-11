@@ -2,7 +2,7 @@ package Client;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientConnection {
+public class Client {
 
 	private Socket connectionToServer = null;
 	private PrintWriter outStream = null;

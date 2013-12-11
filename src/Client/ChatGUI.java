@@ -22,7 +22,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private JMenuItem about = new JMenuItem("About");
 	
 	private Properties prop = new Properties();	
-	private ClientConnection clientConnection;
+	private Client clientConnection;
 	private Chat clientChat;
 	private String address = "localhost";
 	
@@ -93,7 +93,7 @@ public class ChatGUI extends JFrame implements ActionListener{
     		String name = JOptionPane.showInputDialog("Nickname:");
     		String port = JOptionPane.showInputDialog("Port:");
     		writeProperties(name, port);
-    		clientConnection = new ClientConnection();
+    		clientConnection = new Client();
     		clientChat = new Chat(clientConnection, prop);
         }
 	}
