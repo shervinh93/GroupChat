@@ -1,12 +1,14 @@
 package Client;
 import java.io.*;
 import java.net.Socket;
+import java.util.Properties;
 
 public class Client {
 
 	private Socket connectionToServer = null;
 	private PrintWriter outStream = null;
 	private BufferedReader inStream = null;
+	private Properties properties;
 
 	public void connect(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
@@ -42,4 +44,14 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+	
+	public void loadProperties() {
+		try {
+			properties.load(new FileReader("prop"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
 }
