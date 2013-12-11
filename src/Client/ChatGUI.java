@@ -21,7 +21,6 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private JMenuItem exit = new JMenuItem("Exit");
 	private JMenu helpMenu = new JMenu("Help");
 	private JMenuItem about = new JMenuItem("About");
-	
 	private Properties prop = new Properties();	
 	private Client client;
 	private String address = "localhost";
@@ -97,7 +96,7 @@ public class ChatGUI extends JFrame implements ActionListener{
     		try {
 				client.connect(address, Integer.parseInt(port));
 			} catch (NumberFormatException | IOException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(panel, "No server found");
 				e.printStackTrace();
 			}
         }
