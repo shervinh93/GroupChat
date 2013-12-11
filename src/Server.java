@@ -25,6 +25,7 @@ public class Server {
 		while(true){
 			try {
 				connectionToClient = serverSocket.accept();
+				System.out.println("Connection received");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
