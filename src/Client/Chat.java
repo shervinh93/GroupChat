@@ -10,17 +10,19 @@ public class Chat{
 
 	/*Constructor for chat*/
 	public Chat(ClientConnection client, Properties prop){
+		System.out.println("konstruktor!?! Chat");
 		this.client = client;
 		this.properties = prop;
 		
 		loadProperties();
-
 		
 		try {
 			client.connect(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
 		} catch (NumberFormatException e) {
+			System.out.println("Error on connection");
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("Error on connection");
 			e.printStackTrace();
 		}
 	}

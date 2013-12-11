@@ -24,6 +24,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private Properties prop = new Properties();	
 	private ClientConnection clientConnection;
 	private Chat clientChat;
+	private String address = "localhost";
 	
 	public ChatGUI(){
 		createWindow();
@@ -65,7 +66,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 		try {
 			//set the properties value
 			prop.setProperty("name", name);
-//			prop.setProperty("address", "123");
+			prop.setProperty("address", address);
 			prop.setProperty("port", port);
 
 			//save properties to project root folder
