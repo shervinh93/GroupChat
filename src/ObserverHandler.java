@@ -6,6 +6,7 @@ public class ObserverHandler {
 	
 	public ObserverHandler(){
 		observerList = new ArrayList<ServerConnection>();
+		System.out.println("klient registered as a observer");
 	}
 	
 	public synchronized void registerObserver(ServerConnection connection){

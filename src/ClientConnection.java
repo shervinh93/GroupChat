@@ -12,6 +12,7 @@ public class ClientConnection {
 
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
+		System.out.println("Connected");
 	}
 
 	public void send(String sMsg) {

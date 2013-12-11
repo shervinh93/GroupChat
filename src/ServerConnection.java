@@ -25,7 +25,7 @@ public class ServerConnection implements Runnable, Observer{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.username = receive();
+//		this.username = receive();
 		obsHandler.registerObserver(this);
 	}
 
