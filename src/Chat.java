@@ -19,7 +19,7 @@ public class Chat{
 		loadProperties();
 		ClientConnection client = new ClientConnection();
 			try {
-				client.connect("127.0.0.1", 52000);
+				client.connect(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
 			} catch (IOException e) {
 				System.err.println("Failed to connect to the server. " + e.getMessage());
 				System.exit(1);
