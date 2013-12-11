@@ -8,10 +8,13 @@ import javax.swing.*;
 
 public class ChatGUI extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton button1 = new JButton("Send");
 	private JTextArea textArea = new JTextArea(30 ,28);
 	private JTextField textField = new JTextField("hejsan");
-	private String text;
 	private JPanel panel = new JPanel();
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
@@ -23,10 +26,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 	
 	Properties prop = new Properties();	
 	
-
-
 	public void createWindow(){
-//		fönster
+//		 fönster
 		 setResizable(false);
 		 setSize(500, 500);
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +44,6 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 helpMenu.add(about);
      	 		        	
 //		 panel
-		 
 		 getContentPane().add(panel);
 		 textArea.setEditable(false);
 		 panel.add(textArea);
@@ -54,9 +54,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 button1.setActionCommand("Send");
 		 button1.addActionListener(this); 
 		 connect.setActionCommand("connect");
-		 connect.addActionListener(this);
-		 
-		 
+		 connect.addActionListener(this); 
 	}
 	
 	public void writeProperties(String name, String port){
@@ -64,7 +62,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 		try {
 			//set the properties value
 			prop.setProperty("name", name);
-			prop.setProperty("address", "123");
+//			prop.setProperty("address", "123");
 			prop.setProperty("port", port);
 
 			//save properties to project root folder
@@ -84,7 +82,6 @@ public class ChatGUI extends JFrame implements ActionListener{
 		//textField.getText();
 	}
 	
-
 	public void actionPerformed(ActionEvent arg0) {
 		if ("Send".equals(arg0.getActionCommand())){
 			textArea.append(textField.getText()+"\n");
