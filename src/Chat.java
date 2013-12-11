@@ -8,11 +8,13 @@ public class Chat{
 	private ClientConnection client;
 
 	/*Constructor for chat*/
-	public Chat(ClientConnection client){
-		properties = new Properties();
+	public Chat(ClientConnection client, Properties prop){
+		this.client = client;
+		this.properties = prop;
+		
 		loadProperties();
 
-		this.client = client;
+		
 		try {
 			client.connect(properties.getProperty("address"), Integer.parseInt(properties.getProperty("port")));
 		} catch (NumberFormatException e) {
