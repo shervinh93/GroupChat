@@ -78,8 +78,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 	}
 	
 	public void appendRecievedText(String message){
-		System.out.println("append text");
-		textArea.append(message);
+		String name = prop.getProperty("name");
+		textArea.append(name +": "+message+"\n");
 	}
 	
 	public void sendInputText(){
