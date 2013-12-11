@@ -42,7 +42,7 @@ public class ServerConnection implements Runnable, Observer{
 	public void send(String message){
 		output.write(message);
 		output.flush();
-		System.out.println("message sent:");
+		System.out.println("message sent:" + message);
 	}
 	
 	/*receives a string from a client*/
@@ -75,8 +75,18 @@ public class ServerConnection implements Runnable, Observer{
 	//the run method for each thread
 	public void run() {
 		System.out.println("new thread started");
-		while(socket.isConnected()){
-			obsHandler.notifyObservers(receive());
+		while(true){
+			if(socket.isConnected())
+				obsHandler.notifyObservers(receive());
+			else{
+				try {
+					socket.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			}
 			
 		}
 		try {

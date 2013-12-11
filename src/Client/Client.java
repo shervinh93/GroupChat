@@ -5,14 +5,14 @@ import java.util.Properties;
 
 public class Client {
 
-	private Socket connectionToServer = null;
+	protected Socket connectionToServer = null;
 	private PrintWriter outStream = null;
 	private BufferedReader inStream = null;
 	private Properties properties;
 
 	public void connect(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
-
+		Thread t = new Thread(new ListenForServer(this));
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
 		System.out.println("Connected");
@@ -52,6 +52,8 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
+
+
 	
 
 }

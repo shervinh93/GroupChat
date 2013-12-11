@@ -92,11 +92,11 @@ public class ChatGUI extends JFrame implements ActionListener{
 //			textArea.append(textField.getText()+"\n");
        	}	       
     	else if ("connect".equals(arg0.getActionCommand())) {
-    		String name = JOptionPane.showInputDialog("Nickname:");
-    		String port = JOptionPane.showInputDialog("Port:");
-    		writeProperties(name, port);
+//    		String name = JOptionPane.showInputDialog("Nickname:");
+//    		String port = JOptionPane.showInputDialog("Port:");
+//    		writeProperties(name, port);
     		try {
-				client.connect(address, Integer.parseInt(port));
+				client.connect("localhost", 52000);
 			} catch (NumberFormatException | IOException e) {
 				JOptionPane.showMessageDialog(panel, "No server found");
 				e.printStackTrace();
