@@ -1,11 +1,21 @@
 package Client;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class ChatGUI extends JFrame implements ActionListener{
 
@@ -27,6 +37,16 @@ public class ChatGUI extends JFrame implements ActionListener{
 	
 	public ChatGUI(Client client){
 		this.client = client;
+		try {
+			prop.load(new FileInputStream("prop"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		createWindow();
 	}
 	
@@ -78,8 +98,9 @@ public class ChatGUI extends JFrame implements ActionListener{
 	}
 	
 	public void appendRecievedText(String message){
-		String name = prop.getProperty("name");
-		textArea.append(name +": "+message+"\n");
+
+
+		textArea.append(message + "\n");
 	}
 	
 	public void sendInputText(){
@@ -98,6 +119,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 //    		writeProperties(name, port);
     		try {
 				client.connect("localhost", 52000);
+				client.sendUsername(prop.getProperty("name"));
 				Thread t = new Thread(new ListenForServer(client, this));
 				t.start();
 			} catch (NumberFormatException | IOException e) {

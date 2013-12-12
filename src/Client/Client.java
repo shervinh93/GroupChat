@@ -16,6 +16,11 @@ public class Client {
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
 		System.out.println("Connected");
 	}
+	
+	public void sendUsername(String userName){
+		outStream.println(userName);
+		outStream.flush();
+	}
 
 	public void send(String sMsg) {
 		outStream.println(sMsg);

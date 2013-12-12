@@ -4,17 +4,16 @@ public class ListenForServer implements Runnable{
 	private Client client;
 	private ChatGUI gui;
 	
-	public ListenForServer(Client c, ChatGUI g){
+	public ListenForServer(Client client, ChatGUI gui){
 		System.out.println("Listen for server constructor");
-		this.client = c;
-		this.gui = g;
+		this.client = client;
+		this.gui = gui;
 	}
 	
 	public void run() {
 		System.out.println("in run method");
 		while(true){
 			String inputmessage = client.receive();
-			System.out.println("Client received: " + inputmessage);
 			gui.appendRecievedText(inputmessage);
 		}
 	}

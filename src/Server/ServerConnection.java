@@ -26,6 +26,7 @@ public class ServerConnection implements Runnable, Observer{
 			e.printStackTrace();
 		}
 		obsHandler.registerObserver(this);
+		username = receive();
 	}
 
 	/*updates observers*/
@@ -33,7 +34,7 @@ public class ServerConnection implements Runnable, Observer{
 		send(username + ": " + message);
 		System.out.println("updating clients");
 	}
-	
+
 	public Socket getSocket(){
 		return socket;
 	}
@@ -41,22 +42,20 @@ public class ServerConnection implements Runnable, Observer{
 	/*sends message o clients*/
 	public void send(String message){
 		output.println(message);
-		output.flush();
-		System.out.println("message sent:" + message);
 	}
-	
+
 	/*receives a string from a client*/
 	public String receive(){
 		String message = "";
 		try {
 			message = input.readLine();
 		} catch (IOException e) {
-			e.printStackTrace();
+			this.close();
 		}
-		
+
 		return message;
 	}
-	
+
 	/* unregisters the client from the handler,
 	 * closes the streams and 
 	 * closes the socket */
@@ -65,36 +64,23 @@ public class ServerConnection implements Runnable, Observer{
 			input.close();
 			output.close();
 			obsHandler.unRegisterObserver(this);
-			socket.close();
-			this.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	//the run method for each thread
 	public void run() {
 		System.out.println("new thread started");
 		while(true){
-			if(socket.isConnected())
-				obsHandler.notifyObservers(receive());
-			else{
-				try {
-					socket.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			obsHandler.notifyObservers(receive());
+			if(socket.isClosed()){
+				obsHandler.unRegisterObserver(this);
 				break;
 			}
-			
-		}
-		try {
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
+		}
+
+	}
 }
