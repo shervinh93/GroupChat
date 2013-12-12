@@ -1,4 +1,5 @@
 package Client;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -14,15 +15,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 public class ChatGUI extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JButton button1 = new JButton("Send");
-	private JTextArea textArea = new JTextArea(30 ,28);
-	private JTextField textField = new JTextField("hejsan");
+	private JTextArea textArea = new JTextArea(30 ,40);
+	private JScrollPane scroll = new JScrollPane(textArea);
+	private JTextField textField = new JTextField(33);
 	private JPanel panel = new JPanel();
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
@@ -53,7 +57,7 @@ public class ChatGUI extends JFrame implements ActionListener{
 	public void createWindow(){
 //		 fönster
 		 setResizable(false);
-		 setSize(500, 500);
+		 setSize(455, 572);
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 setTitle("GroupChat");
 		 
@@ -67,9 +71,13 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 helpMenu.add(about);
      	 		        	
 //		 panel
+//		 panel.setLayout(new BorderLayout());
 		 getContentPane().add(panel);
 		 textArea.setEditable(false);
-		 panel.add(textArea);
+		 panel.add(scroll);
+		 DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+		 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+//		 panel.add(textArea);
 		 panel.add(textField);
 		 panel.add(button1);
 		 setVisible(true);
@@ -79,6 +87,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 		 button1.addActionListener(this); 
 		 connect.setActionCommand("connect");
 		 connect.addActionListener(this); 
+		 
+		 button1.requestFocusInWindow();
 	}
 	
 	public void writeProperties(String name, String port){
@@ -98,20 +108,17 @@ public class ChatGUI extends JFrame implements ActionListener{
 	}
 	
 	public void appendRecievedText(String message){
-
-
 		textArea.append(message + "\n");
 	}
 	
-	public void sendInputText(){
-		client.send(textField.getText());
-	}
+//	public void sendInputText(){
+//		client.send(": "+textField.getText());
+//	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if ("Send".equals(arg0.getActionCommand())){
 			String message = textField.getText();
 			client.send(message);
-//			textArea.append(textField.getText()+"\n");
        	}	       
     	else if ("connect".equals(arg0.getActionCommand())) {
 //    		String name = JOptionPane.showInputDialog("Nickname:");
