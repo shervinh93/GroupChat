@@ -13,15 +13,19 @@ public class ObserverHandler {
 	public synchronized void registerObserver(ServerConnection connection){
 		observerList.add(connection);
 		System.out.println("client registered as a observer");
+		System.out.println(observerList.size() + " clients connected");
 	}
 
 	public synchronized void unRegisterObserver(ServerConnection connection){
 		observerList.remove(connection);
+		
+		System.out.println(observerList.size() + " clients connected");
 	}
 
 	public synchronized void notifyObservers(String message){
 		for(ServerConnection con : observerList){
 			con.update(message);
 		}
+		System.out.println("Clients uppdated");
 	}
 }

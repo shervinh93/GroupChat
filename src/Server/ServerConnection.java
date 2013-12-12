@@ -32,7 +32,7 @@ public class ServerConnection implements Runnable, Observer{
 	/*updates observers*/
 	public void update(String message) {
 		send(username + ": " + message);
-		System.out.println("updating clients");
+		
 	}
 
 	public Socket getSocket(){
@@ -76,11 +76,15 @@ public class ServerConnection implements Runnable, Observer{
 		while(true){
 			obsHandler.notifyObservers(receive());
 			if(socket.isClosed()){
-				obsHandler.unRegisterObserver(this);
 				break;
 			}
 
 		}
 
+	}
+
+	public String getUserName() {
+		return username;
+		
 	}
 }
