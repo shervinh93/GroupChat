@@ -113,6 +113,16 @@ public class ChatGUI extends JFrame implements ActionListener {
 //		client.send(": "+textField.getText());
 //	}
 
+	public void setConnected(boolean connected) {
+		if (connected) {
+			connect.setEnabled(false);
+			disconnect.setEnabled(true);
+		} else {
+			connect.setEnabled(true);
+			disconnect.setEnabled(false);
+		}
+	}
+
 	public void actionPerformed(ActionEvent arg0) {
 		if ("Send".equals(arg0.getActionCommand())) {
 			if (client.isConnected()) {

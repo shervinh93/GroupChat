@@ -12,9 +12,17 @@ public class ListenForServer implements Runnable {
 
 	public void run() {
 		System.out.println("in run method");
+		gui.setConnected(true);
 		while (true) {
 			String inputmessage = client.receive();
-			gui.appendRecievedText(inputmessage);
+			if (inputmessage != null)
+				gui.appendRecievedText(inputmessage);
+			else {
+				gui.appendRecievedText("Disconnected from server. Please reconnect.");
+				gui.setConnected(false);
+				client.close();
+				break;
+			}
 		}
 	}
 }
