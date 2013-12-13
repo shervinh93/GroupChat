@@ -44,10 +44,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 		try {
 			prop.load(new FileInputStream("prop"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

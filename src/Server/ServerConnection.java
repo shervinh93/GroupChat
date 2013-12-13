@@ -2,6 +2,7 @@ package Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -21,7 +22,7 @@ public class ServerConnection implements Runnable, Observer{
 
 		try {
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output = new PrintWriter(socket.getOutputStream(), true);
+			output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,6 +43,7 @@ public class ServerConnection implements Runnable, Observer{
 	/*sends message o clients*/
 	public void send(String message){
 		output.println(message);
+		output.flush();
 	}
 
 	/*receives a string from a client*/
