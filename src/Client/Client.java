@@ -10,9 +10,16 @@ public class Client {
 	private PrintWriter outStream = null;
 	private BufferedReader inStream = null;
 
+<<<<<<< HEAD:src/Client/Client.java
 	public void connect(String serverAddress, int serverPort) throws IOException {
 		connectionToServer = new Socket(serverAddress, serverPort);
 		connected = true;
+=======
+
+	public ClientConnection(String serverAddress, int serverPort) throws IOException {
+		connectionToServer = new Socket(serverAddress, serverPort);
+
+>>>>>>> 898c15f64524c3a83c91ebc6227b48136540500e:src/ClientConnection.java
 		outStream = new PrintWriter(new OutputStreamWriter(connectionToServer.getOutputStream()));
 		inStream = new BufferedReader(new InputStreamReader(connectionToServer.getInputStream()));
 		System.out.println("Connected");
