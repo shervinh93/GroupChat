@@ -32,7 +32,7 @@ public class ServerConnection implements Runnable, Observer{
 
 	/*updates observers*/
 	public void update(String message) {
-		send(username + ": " + message);
+			send(username + ": " + message);
 		
 	}
 
@@ -48,7 +48,7 @@ public class ServerConnection implements Runnable, Observer{
 
 	/*receives a string from a client*/
 	public String receive(){
-		String message = "";
+		String message = null;
 		try {
 			message = input.readLine();
 		} catch (IOException e) {

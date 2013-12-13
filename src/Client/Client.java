@@ -34,7 +34,7 @@ public class Client {
 			message = inStream.readLine();
 			System.out.println("Client received message");
 		} catch (IOException e) {
-			e.printStackTrace();
+			close();
 		}
 
 		return message;
