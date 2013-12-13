@@ -33,7 +33,7 @@ public class ServerConnection implements Runnable, Observer {
 
 	/*updates observers*/
 	public void update(String message) {
-		send(username + ": " + message);
+		send(message);
 	}
 
 	public Socket getSocket() {
