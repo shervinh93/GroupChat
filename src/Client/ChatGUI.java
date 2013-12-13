@@ -1,6 +1,6 @@
 package Client;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -9,16 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
 public class ChatGUI extends JFrame implements ActionListener {
@@ -57,7 +48,7 @@ public class ChatGUI extends JFrame implements ActionListener {
 //		 f���nster
 		setResizable(false);
 		setSize(600, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("GroupChat");
 
 //		 arkivmeny
@@ -80,6 +71,7 @@ public class ChatGUI extends JFrame implements ActionListener {
 		panel.add(textField);
 		panel.add(button1);
 		setVisible(true);
+		setLocationRelativeTo(null);
 
 //		 actioncommand & actionlistener
 		button1.setActionCommand("Send");
