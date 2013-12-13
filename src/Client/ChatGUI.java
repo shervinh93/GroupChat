@@ -1,4 +1,5 @@
 package Client;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,11 +21,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
-public class ChatGUI extends JFrame implements ActionListener{
+public class ChatGUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JButton button1 = new JButton("Send");
-	private JTextArea textArea = new JTextArea(30 ,40);
+	private JTextArea textArea = new JTextArea(30, 40);
 	private JScrollPane scroll = new JScrollPane(textArea);
 	private JTextField textField = new JTextField(33);
 	private JPanel panel = new JPanel();
@@ -35,11 +36,11 @@ public class ChatGUI extends JFrame implements ActionListener{
 	private JMenuItem exit = new JMenuItem("Exit");
 	private JMenu helpMenu = new JMenu("Help");
 	private JMenuItem about = new JMenuItem("About");
-	private Properties prop = new Properties();	
-	private Client client;
+	private Properties prop = new Properties();
+	private Client client = null;
 	private String address = "localhost";
-	
-	public ChatGUI(Client client){
+
+	public ChatGUI(Client client) {
 		this.client = client;
 		try {
 			prop.load(new FileInputStream("prop"));
@@ -48,49 +49,49 @@ public class ChatGUI extends JFrame implements ActionListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		createWindow();
 	}
-	
-	public void createWindow(){
+
+	public void createWindow() {
 //		 f�nster
-		 setResizable(false);
-		 setSize(600, 600);
-		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 setTitle("GroupChat");
-		 
+		setResizable(false);
+		setSize(600, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("GroupChat");
+
 //		 arkivmeny
-		 setJMenuBar(menuBar);
-		 menuBar.add(fileMenu);
-		 fileMenu.add(connect);
-		 fileMenu.add(disconnect);
-		 fileMenu.add(exit);
-		 menuBar.add(helpMenu);
-		 helpMenu.add(about);
-     	 		        	
+		setJMenuBar(menuBar);
+		menuBar.add(fileMenu);
+		fileMenu.add(connect);
+		fileMenu.add(disconnect);
+		fileMenu.add(exit);
+		menuBar.add(helpMenu);
+		helpMenu.add(about);
+
 //		 panel
 //		 panel.setLayout(new BorderLayout());
-		 getContentPane().add(panel);
-		 textArea.setEditable(false);
-		 panel.add(scroll);
-		 DefaultCaret caret = (DefaultCaret)textArea.getCaret();
-		 caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		getContentPane().add(panel);
+		textArea.setEditable(false);
+		panel.add(scroll);
+		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 //		 panel.add(textArea);
-		 panel.add(textField);
-		 panel.add(button1);
-		 setVisible(true);
-		 
+		panel.add(textField);
+		panel.add(button1);
+		setVisible(true);
+
 //		 actioncommand & actionlistener
-		 button1.setActionCommand("Send");
-		 button1.addActionListener(this); 
-		 connect.setActionCommand("connect");
-		 connect.addActionListener(this); 
-		 
-		 button1.requestFocusInWindow();
+		button1.setActionCommand("Send");
+		button1.addActionListener(this);
+		connect.setActionCommand("connect");
+		connect.addActionListener(this);
+
+		button1.requestFocusInWindow();
 	}
-	
-	public void writeProperties(String name, String port){
-		
+
+	public void writeProperties(String name, String port) {
+
 		try {
 			//set the properties value
 			prop.setProperty("name", name);
@@ -99,34 +100,32 @@ public class ChatGUI extends JFrame implements ActionListener{
 
 			//save properties to project root folder
 			prop.store(new FileOutputStream("prop"), null);
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
-	public void appendRecievedText(String message){
+
+	public void appendRecievedText(String message) {
 		textArea.append(message + "\n");
 	}
-	
+
 //	public void sendInputText(){
 //		client.send(": "+textField.getText());
 //	}
-	
+
 	public void actionPerformed(ActionEvent arg0) {
-		if ("Send".equals(arg0.getActionCommand())){
-			if (client != null) {
+		if ("Send".equals(arg0.getActionCommand())) {
+			if (client.isConnected()) {
 				String message = textField.getText();
 				client.send(message);
 			} else {
 				textArea.append("You have to connect before sending any messages.");
 			}
-       	}	       
-    	else if ("connect".equals(arg0.getActionCommand())) {
+		} else if ("connect".equals(arg0.getActionCommand())) {
 //    		String name = JOptionPane.showInputDialog("Nickname:");
 //    		String port = JOptionPane.showInputDialog("Port:");
 //    		writeProperties(name, port);
-    		try {
+			try {
 				client.connect("localhost", 52000);
 				client.sendUsername(prop.getProperty("name"));
 				Thread t = new Thread(new ListenForServer(client, this));
@@ -135,11 +134,8 @@ public class ChatGUI extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(panel, "No server found");
 				e.printStackTrace();
 			}
-        }
-    	else if ("Exit".equals(arg0.getActionCommand())) {
-    	client.close();
-			
-        }
+		} else if ("Exit".equals(arg0.getActionCommand())) {
+			client.close();
+		}
 	}
-
 }

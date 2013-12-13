@@ -1,4 +1,5 @@
 package Server;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,11 +8,11 @@ public class Server {
 	private ServerSocket serverSocket = null;
 	private Socket connectionToClient = null;
 	private ObserverHandler obh;
-	
 
-	public void init(int port){
+
+	public void init(int port) {
 		log("trying to initialize the server");
-		
+
 		obh = new ObserverHandler();
 		try {
 			serverSocket = new ServerSocket(port);
@@ -21,9 +22,9 @@ public class Server {
 		log("Succeded");
 	}
 
-	public void waitForConnections(){
+	public void waitForConnections() {
 		log("waiting for connections");
-		while(true){
+		while (true) {
 			try {
 				connectionToClient = serverSocket.accept();
 				System.out.println("Connection received");
@@ -35,15 +36,15 @@ public class Server {
 		}
 	}
 
-	public void close(){
+	public void close() {
 		try {
 			serverSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void log(String log_message){
+
+	public void log(String log_message) {
 		System.out.println(log_message);
 	}
 }

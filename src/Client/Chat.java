@@ -1,9 +1,10 @@
 package Client;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Chat{
+public class Chat {
 
 //	private Properties properties;
 //	private Client client;
@@ -39,6 +40,4 @@ public class Chat{
 //			e.printStackTrace();
 //		}
 //	}
-
-
 }
