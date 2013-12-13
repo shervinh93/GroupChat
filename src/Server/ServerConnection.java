@@ -53,6 +53,7 @@ public class ServerConnection implements Runnable, Observer {
 			message = input.readLine();
 		} catch (IOException e) {
 			this.close();
+			e.printStackTrace();
 		}
 
 		return message;
@@ -76,6 +77,11 @@ public class ServerConnection implements Runnable, Observer {
 		System.out.println("new thread started");
 		while (true) {
 			obsHandler.notifyObservers(receive());
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if (socket.isClosed()) {
 				break;
 			}
