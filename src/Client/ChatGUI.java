@@ -127,6 +127,7 @@ public class ChatGUI extends JFrame implements ActionListener {
 		if ("Send".equals(arg0.getActionCommand())) {
 			if (client.isConnected()) {
 				String message = textField.getText();
+				textField.setText("");
 				client.send(message);
 			} else {
 				textArea.append("You have to connect before sending any messages.");
