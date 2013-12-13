@@ -53,9 +53,9 @@ public class ChatGUI extends JFrame implements ActionListener{
 	}
 	
 	public void createWindow(){
-//		 fönster
+//		 fï¿½nster
 		 setResizable(false);
-		 setSize(455, 572);
+		 setSize(600, 600);
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 setTitle("GroupChat");
 		 
