@@ -54,7 +54,7 @@ public class ChatGUI extends JFrame implements ActionListener {
 	}
 
 	public void createWindow() {
-//		 f�nster
+//		 f���nster
 		setResizable(false);
 		setSize(600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,13 +90,13 @@ public class ChatGUI extends JFrame implements ActionListener {
 		button1.requestFocusInWindow();
 	}
 
-	public void writeProperties(String name, String port) {
+	public void writeProperties(String name, int port, String address) {
 
 		try {
 			//set the properties value
 			prop.setProperty("name", name);
 			prop.setProperty("address", address);
-			prop.setProperty("port", port);
+			prop.setProperty("port", Integer.toString(port));
 
 			//save properties to project root folder
 			prop.store(new FileOutputStream("prop"), null);
@@ -132,12 +132,13 @@ public class ChatGUI extends JFrame implements ActionListener {
 			} else {
 				textArea.append("You have to connect before sending any messages.");
 			}
-		} else if ("connect".equals(arg0.getActionCommand())) {
-//    		String name = JOptionPane.showInputDialog("Nickname:");
-//    		String port = JOptionPane.showInputDialog("Port:");
-//    		writeProperties(name, port);
+		} else if ("connect".equals(arg0.getActionCommand())) {    	
+			String name = JOptionPane.showInputDialog("Nickname:");
+			int port = Integer.parseInt(JOptionPane.showInputDialog("Port:"));
+			String address = JOptionPane.showInputDialog("Address:");
+			writeProperties(name, port, address);
 			try {
-				client.connect("localhost", 52000);
+				client.connect(prop.getProperty("address"), Integer.parseInt(prop.getProperty("port")));
 				client.sendUsername(prop.getProperty("name"));
 				Thread t = new Thread(new ListenForServer(client, this));
 				t.start();
