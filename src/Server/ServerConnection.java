@@ -29,6 +29,7 @@ public class ServerConnection implements Runnable, Observer {
 		}
 		obsHandler.registerObserver(this);
 		username = receive();
+		obsHandler.notifyObservers(username, "has connected.", false);
 	}
 
 	/*updates observers*/
@@ -42,7 +43,7 @@ public class ServerConnection implements Runnable, Observer {
 
 	/*sends message o clients*/
 	public void send(String message) {
-		output.println(username + ": " + message);
+		output.println(message);
 		output.flush();
 	}
 
@@ -51,6 +52,8 @@ public class ServerConnection implements Runnable, Observer {
 		String message = null;
 		try {
 			message = input.readLine();
+			if (message == null)
+				close();
 		} catch (IOException e) {
 			this.close();
 			e.printStackTrace();
@@ -64,6 +67,7 @@ public class ServerConnection implements Runnable, Observer {
 	 * closes the socket */
 	public void close() {
 		try {
+			obsHandler.notifyObservers(username, "has disonnected", false);
 			input.close();
 			output.close();
 			obsHandler.unRegisterObserver(this);
@@ -76,7 +80,7 @@ public class ServerConnection implements Runnable, Observer {
 	public void run() {
 		System.out.println("new thread started");
 		while (true) {
-			obsHandler.notifyObservers(receive());
+			obsHandler.notifyObservers(username, receive(), true);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

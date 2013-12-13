@@ -22,10 +22,13 @@ public class ObserverHandler {
 		System.out.println(observerList.size() + " clients connected");
 	}
 
-	public synchronized void notifyObservers(String message) {
+	public synchronized void notifyObservers(String username, String message, boolean userMessage) {
 		if (message != null) {
 			for (ServerConnection con : observerList) {
-				con.update(message);
+				if (userMessage)
+					con.update(username + ": " + message);
+				else
+					con.update("- " + username + " " + message + " -");
 			}
 			System.out.println("Clients uppdated");
 		}
