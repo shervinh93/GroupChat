@@ -36,14 +36,6 @@ public class Server {
 		}
 	}
 
-	public void close() {
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void log(String log_message) {
 		System.out.println(log_message);
 	}
