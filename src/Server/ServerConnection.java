@@ -42,7 +42,7 @@ public class ServerConnection implements Runnable, Observer {
 
 	/*sends message o clients*/
 	public void send(String message) {
-		output.println(message);
+		output.println(username + ": " + message);
 		output.flush();
 	}
 
